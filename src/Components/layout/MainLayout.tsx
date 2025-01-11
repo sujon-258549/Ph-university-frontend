@@ -1,25 +1,23 @@
-import { Layout, Menu } from "antd";
+import { Layout, Menu, MenuProps } from "antd";
 const { Header, Content, Footer, Sider } = Layout;
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import React from "react";
 const MainLayout = () => {
-  const items = [
-    UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
-    UserOutlined,
-  ].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-  }));
+  const items: MenuProps["items"] = [
+    {
+      key: "/home",
+      label: "Home",
+    },
+    {
+      key: "/about",
+      label: "About",
+    },
+    {
+      key: "/dashboard",
+      label: "Dashboard",
+    },
+  ];
   return (
     <div>
-      <Layout>
+      <Layout className="" style={{ height: "100vh" }}>
         <Sider
           breakpoint="lg"
           collapsedWidth="0"
@@ -30,7 +28,9 @@ const MainLayout = () => {
             console.log(collapsed, type);
           }}
         >
-          <div className="demo-logo-vertical" />
+          <div className="text-center text-white h-5 py-7 font-bold text-xl">
+            Ph University
+          </div>
           <Menu
             theme="dark"
             mode="inline"

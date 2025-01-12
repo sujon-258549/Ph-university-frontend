@@ -1,6 +1,6 @@
 import { adminsideberitems } from "@/router/admin.router";
-import { Layout, Menu, MenuProps } from "antd";
-import { NavLink, Outlet } from "react-router-dom";
+import { Layout, Menu } from "antd";
+import { Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const MainLayout = () => {
   //   const items: MenuProps["items"] = [

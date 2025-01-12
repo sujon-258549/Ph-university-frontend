@@ -7,3 +7,5 @@ npm create vite@latest
 npm i react-router-dom
 npm i react-hook-form
 npm i antd
+
+<!-- install redux  -->

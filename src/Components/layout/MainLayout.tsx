@@ -1,56 +1,12 @@
-import adminPath from "@/router/admin.router";
-import { sidebarItemsGenerator } from "@/Utils/sidebarItemsGenerator";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { Outlet } from "react-router-dom";
-const { Header, Content, Footer, Sider } = Layout;
+import Sidebar from "./Sideber";
+const { Header, Content, Footer } = Layout;
 const MainLayout = () => {
-  //   const items: MenuProps["items"] = [
-  //     {
-  //       key: "/dashboard",
-  //       label: <NavLink to={"/admin/dashboard"}>Dashboard</NavLink>,
-  //     },
-  //     {
-  //       key: "/user management",
-  //       label: "User Management",
-  //       children: [
-  //         {
-  //           key: "/Create admin",
-  //           label: <NavLink to={"/admin/create-admin"}>Create Admin</NavLink>,
-  //         },
-  //         {
-  //           key: "/Create faculty",
-  //           label: <NavLink to={"/admin/create-faculty"}>Create Faculty</NavLink>,
-  //         },
-  //         {
-  //           key: "/Create student",
-  //           label: <NavLink to={"/admin/create-student"}>Create Student</NavLink>,
-  //         },
-  //       ],
-  //     },
-  //   ];
   return (
     <div>
       <Layout className="" style={{ height: "100vh" }}>
-        <Sider
-          breakpoint="lg"
-          collapsedWidth="0"
-          onBreakpoint={(broken) => {
-            console.log(broken);
-          }}
-          onCollapse={(collapsed, type) => {
-            console.log(collapsed, type);
-          }}
-        >
-          <div className="text-center text-white h-5 py-7 font-bold text-xl">
-            Ph University
-          </div>
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["4"]}
-            items={sidebarItemsGenerator(adminPath, "admin")}
-          />
-        </Sider>
+        <Sidebar />
         <Layout>
           <Header style={{ padding: 0 }} />
           <Content style={{ margin: "24px 16px 0" }}>

@@ -4,6 +4,7 @@ import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
 import { createBrowserRouter } from "react-router-dom";
 import adminPath from "./admin.router";
+import { routeGenerator } from "@/Utils/routerGenerator";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,9 +18,9 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "admin",
+    path: "/admin",
     element: <App></App>,
-    children: adminPath,
+    children: routeGenerator(adminPath),
   },
 
   {

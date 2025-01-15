@@ -7,6 +7,11 @@ npm create vite@latest
 npm i react-router-dom
 npm i react-hook-form
 npm i antd
+npm i jwt-decode
+
+<!-- create verify token -->
+
+npm i redux-persist
 
 <!-- install redux  -->
 

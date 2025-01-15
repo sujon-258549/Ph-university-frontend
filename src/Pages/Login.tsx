@@ -1,16 +1,24 @@
 import { useLoginMutation } from "@/redux/futures/auth/authApi";
+import { setUser } from "@/redux/futures/auth/authSlice";
+import { useAppDispatch } from "@/redux/futures/hooks";
+import { varifytoken } from "@/Utils/jwtVerified";
 import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
   const { register, handleSubmit } = useForm(); // Correct initialization
   const [login, { data, error }] = useLoginMutation();
   console.log("data", data, " error", error);
-  const onSubmit = (data: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = async (data: any) => {
     const userInfo = {
       id: data.id,
       password: data.password,
     };
-    login(userInfo);
+    // token tek
+    const res = await login(userInfo).unwrap(); // unwrap use and data to data open
+    const user = varifytoken(res.data.accessToken);
+    dispatch(setUser({ user: user, token: res.data.accessToken }));
   };
 
   return (

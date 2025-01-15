@@ -1,14 +1,24 @@
-import { Layout } from "antd";
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sideber";
+import { Button, Layout } from "antd";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/redux/futures/hooks";
+import { logOut } from "@/redux/futures/auth/authSlice";
+import Sidebar from "./Sidebar";
 const { Header, Content, Footer } = Layout;
 const MainLayout = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const handelLogout = () => {
+    dispatch(logOut());
+    navigate("/login");
+  };
   return (
     <div>
       <Layout className="" style={{ height: "100vh" }}>
         <Sidebar />
         <Layout>
-          <Header style={{ padding: 0 }} />
+          <Header>
+            <Button onClick={handelLogout}>Logout</Button>
+          </Header>
           <Content style={{ margin: "24px 16px 0" }}>
             <div
               style={{

@@ -5,7 +5,6 @@ import Registration from "../Pages/Registration";
 import { createBrowserRouter } from "react-router-dom";
 import adminPath from "./admin.router";
 import { routeGenerator } from "@/Utils/routerGenerator";
-import ProtectedRoute from "@/Components/layout/ProtectedRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -20,11 +19,7 @@ const router = createBrowserRouter([
 
   {
     path: "/admin",
-    element: (
-      <ProtectedRoute>
-        <App></App>
-      </ProtectedRoute>
-    ),
+    element: <App></App>,
     children: routeGenerator(adminPath),
   },
 

@@ -1,3 +1,5 @@
+import { selectCurrentUser } from "@/redux/futures/auth/authSlice";
+import { useAppSelector } from "@/redux/futures/hooks";
 import adminPath from "@/router/admin.router";
 import { sidebarItemsGenerator } from "@/Utils/sidebarItemsGenerator";
 import { Layout, Menu } from "antd";
@@ -8,9 +10,9 @@ const userRole = {
   STUDENT: "student",
 };
 const Sidebar = () => {
-  const role = "admin";
+  const user = useAppSelector(selectCurrentUser);
   let sidebarItems;
-  switch (role) {
+  switch (user?.JwtPayload?.userRole) {
     case userRole.ADMIN:
       sidebarItems = sidebarItemsGenerator(adminPath, userRole.ADMIN);
       break;

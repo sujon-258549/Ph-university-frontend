@@ -17,4 +17,8 @@ npm i redux-persist
 
 impotent part login 26.5-26.6
 
+<!-- sonner lading  spinar -->
+
+npm install sonner
+
 <!-- end project -->

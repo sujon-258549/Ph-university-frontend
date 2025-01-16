@@ -30,7 +30,7 @@ const AcadimicSamester = () => {
             </tr>
           </thead>
           <tbody className="whitespace-nowrap">
-            {data.data.result.map(
+            {data?.data?.result?.map(
               ({ name, code, statindMonth, endingMonth, year }) => (
                 <tr key={data._id} className="even:bg-blue-50">
                   <td

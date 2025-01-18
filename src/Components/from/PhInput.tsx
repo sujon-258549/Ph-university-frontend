@@ -1,14 +1,13 @@
 import { useFormContext } from "react-hook-form";
 
-const PhInput = ({ type, name }) => {
+const PhInput = ({ placeholder, type, name }) => {
   const { register } = useFormContext();
   return (
     <input
-      //   placeholder="Enter Your Password"
-      className="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+      className="bg-[#222630] px-4 py-3 outline-none w-[280px] text-white rounded-lg border-2 transition-colors duration-100 border-solid focus:border-[#596A95] border-[#2B3040]"
+      placeholder={placeholder}
       type={type} // Updated type to "password"
       id={name}
-      defaultValue={"admin1234"}
       {...register(name)}
     />
   );

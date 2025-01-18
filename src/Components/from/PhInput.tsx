@@ -1,15 +1,21 @@
-import { useFormContext } from "react-hook-form";
-
-const PhInput = ({ placeholder, type, name }) => {
-  const { register } = useFormContext();
+import { Input } from "antd";
+import { Controller } from "react-hook-form";
+interface PhInputProps {
+  placeholder: string;
+  type?: string;
+  name: string;
+  className?: string;
+}
+const PhInput: React.FC<PhInputProps> = ({ placeholder, type, name }) => {
   return (
-    <input
-      placeholder={placeholder}
-      type={type}
-      id={name}
-      {...register(name)}
-      className="relative bg-gray-50ring-0  outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
-    />
+    <div className="">
+      <Controller
+        name={name}
+        render={({ field }) => (
+          <Input {...field} placeholder={placeholder} type={type} id={name} />
+        )}
+      />
+    </div>
   );
 };
 

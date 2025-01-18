@@ -4,11 +4,11 @@ const PhInput = ({ placeholder, type, name }) => {
   const { register } = useFormContext();
   return (
     <input
-      className="bg-[#222630] px-4 py-3 outline-none w-[280px] text-white rounded-lg border-2 transition-colors duration-100 border-solid focus:border-[#596A95] border-[#2B3040]"
       placeholder={placeholder}
-      type={type} // Updated type to "password"
+      type={type}
       id={name}
       {...register(name)}
+      className="relative bg-gray-50ring-0  outline-none border border-neutral-500 text-neutral-900 placeholder-violet-700 text-sm rounded-lg focus:ring-violet-500  focus:border-violet-500 block w-64 p-2.5 checked:bg-emerald-500"
     />
   );
 };

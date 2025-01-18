@@ -4,6 +4,7 @@ import { useLoginMutation } from "@/redux/futures/auth/authApi";
 import { setUser, TUser } from "@/redux/futures/auth/authSlice";
 import { useAppDispatch } from "@/redux/futures/hooks";
 import { varifytoken } from "@/Utils/jwtVerified";
+import { Button } from "antd";
 import { FieldValues, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -34,8 +35,18 @@ const Login = () => {
   return (
     <div>
       <PhFrom>
-        <PhInput type={"text"} name={"id"}></PhInput>
-        <PhInput type={"text"} name={"password"}></PhInput>
+        <PhInput
+          placeholder={"Enter Your User id"}
+          type={"text"}
+          name={"id"}
+        ></PhInput>{" "}
+        <br />
+        <PhInput
+          placeholder={"Enter your Password"}
+          type={"text"}
+          name={"password"}
+        ></PhInput>
+        <Button>Submit</Button>
       </PhFrom>
     </div>
   );

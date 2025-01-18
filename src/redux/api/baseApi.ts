@@ -1,6 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  BaseQueryApi,
+  BaseQueryFn,
+  createApi,
+  DefinitionType,
+  FetchArgs,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { RootState } from "../futures/store";
-import { setUser } from "../futures/auth/authSlice";
+import { logOut, setUser } from "../futures/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5001/api/v1",
@@ -14,7 +22,11 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
+const baseQueryWithRefreshToken: BaseQueryFn<
+  FetchArgs,
+  BaseQueryApi,
+  DefinitionType
+> = async (args, api, extraOptions): Promise<any> => {
   let result = await baseQuery(args, api, extraOptions);
   if (result?.error?.status === 401) {
     console.log("Sending refresh token");
@@ -23,10 +35,14 @@ const baseQueryWithRefreshToken = async (args, api, extraOptions) => {
       credentials: "include",
     });
     const data = await res.json();
-    console.log(data);
-    const user = (api.getState() as RootState).auth.user;
-    api.dispatch(setUser({ user, token: data?.data?.accessToken }));
-    result = await baseQuery(args, api, extraOptions);
+    if (data?.data?.accessToken) {
+      const user = (api?.getState() as RootState).auth.user;
+      api.dispatch(setUser({ user, token: data?.data?.accessToken }));
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      // logout for User Expire for  RefreshToken
+      api.dispatch(logOut());
+    }
   }
   return result;
 };

@@ -1,6 +1,6 @@
 import { useGetAllSemesterQuery } from "@/redux/futures/acadimicSamester/acadimicSamester";
 
-const AcadimicSamester = () => {
+const AcademicSemester = () => {
   const { data } = useGetAllSemesterQuery(undefined);
   console.log(data);
   return (
@@ -94,4 +94,4 @@ const AcadimicSamester = () => {
   );
 };
 
-export default AcadimicSamester;
+export default AcademicSemester;

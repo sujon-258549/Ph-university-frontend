@@ -3,8 +3,8 @@ import React from "react";
 import { Controller } from "react-hook-form";
 
 interface Label {
-  label?: string | number;
-  name: string | number;
+  label?: string;
+  name: string;
   options: { value: string; label: string }[];
 }
 

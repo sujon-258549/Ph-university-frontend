@@ -28,8 +28,8 @@ const CreateAcademicSemester = () => {
   console.log(year);
 
   const yearOptions = [0, 1, 2, 3, 4, 5].map((number) => ({
-    label: year + number,
-    value: year + number,
+    label: String(year + number),
+    value: String(year + number),
   }));
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

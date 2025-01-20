@@ -23,4 +23,8 @@ npm install sonner
 
 authentication part main 26.6------------28.7 // main part for Authentication
 
+<!-- validation check  -->
+
+npm i @hookform/resolvers
+
 <!-- end project -->

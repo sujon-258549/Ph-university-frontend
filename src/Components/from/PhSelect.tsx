@@ -12,7 +12,7 @@ const PhSelect: React.FC<Label> = ({ label, name, options }) => {
   return (
     <Controller
       name={name}
-      render={({ field: { onChange } }) => (
+      render={({ field: { onChange }, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
             showSearch
@@ -23,6 +23,7 @@ const PhSelect: React.FC<Label> = ({ label, name, options }) => {
             }
             options={options}
           />
+          {error && <small>{error.message}</small>}
         </Form.Item>
       )}
     />

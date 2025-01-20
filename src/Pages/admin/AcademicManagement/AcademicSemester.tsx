@@ -1,4 +1,5 @@
-import { useGetAllSemesterQuery } from "@/redux/futures/acadimicSamester/acadimicSamester";
+import { useGetAllSemesterQuery } from "@/redux/futures/admin/academicSemester/academicManagement";
+import { TAcademicSemester } from "@/types/all";
 
 const AcademicSemester = () => {
   const { data } = useGetAllSemesterQuery(undefined);
@@ -31,7 +32,13 @@ const AcademicSemester = () => {
           </thead>
           <tbody className="whitespace-nowrap">
             {data?.data?.result?.map(
-              ({ name, code, statindMonth, endingMonth, year }) => (
+              ({
+                name,
+                code,
+                startingMonth,
+                endingMonth,
+                year,
+              }: TAcademicSemester) => (
                 <tr key={data._id} className="even:bg-blue-50">
                   <td
                     className={`p-4 text-sm ${
@@ -47,7 +54,7 @@ const AcademicSemester = () => {
                     {name}
                   </td>
                   <td className="p-4 text-sm text-black">{code}</td>
-                  <td className="p-4 text-sm text-black">{statindMonth}</td>
+                  <td className="p-4 text-sm text-black">{startingMonth}</td>
                   <td className="p-4 text-sm text-black">{endingMonth}</td>
                   <td className="p-4 text-sm text-black">{year}</td>
                   <td className="p-4">

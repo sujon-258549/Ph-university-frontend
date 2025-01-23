@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "@/Components/Schema/academicManagement";
 import { useCreateAcademicSemesterMutation } from "@/redux/futures/admin/academicSemester/academicManagement";
 import { toast } from "sonner";
+import { TResponse } from "@/types/all";
 const CreateAcademicSemester = () => {
   const year = new Date().getFullYear();
   console.log(year);
@@ -20,22 +21,27 @@ const CreateAcademicSemester = () => {
   }));
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const tostId = toast.loading("Creating.............");
     const name = semesterNameOptions[Number(data.name) - 1].label;
     const semesterData = {
       name,
       code: data.name,
       year: data.year,
-      statingMonth: data.statingMonth,
+      startingMonth: data.startingMonth,
       endingMonth: data.endingMonth,
     };
+    console.log(semesterData);
     try {
-      console.log(semesterData);
-      const res = await createAcademicSemester(semesterData);
-      toast.success("Semester Create Success");
+      const res = (await createAcademicSemester(semesterData)) as TResponse;
+      if (res.error) {
+        toast.error(res.error?.data?.message, { id: tostId });
+      } else {
+        toast.success("Semester Create Success");
+      }
       console.log(res);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast.error("Academic Semester Create Felid");
+      toast.error("Academic Semester Create Felid", { id: tostId });
     }
   };
 
@@ -52,7 +58,7 @@ const CreateAcademicSemester = () => {
         ></PhSelect>
         <PhSelect name="year" label={"Year"} options={yearOptions}></PhSelect>
         <PhSelect
-          name="statingMonth"
+          name="startingMonth"
           label={"Start Month"}
           options={monthOptions}
         ></PhSelect>

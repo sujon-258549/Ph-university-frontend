@@ -14,6 +14,14 @@ const createAcademicSemesterApi = baseApi.injectEndpoints({
         url: "/academic-semester",
         method: "GET",
       }),
+      //   transformResponse: (response) => {
+      //     console.log(response);
+      //     return {
+      //       response,
+      //       //   data: response.data,
+      //       //   meta: response.meta,
+      //     };
+      //   },
     }),
   }),
 });

@@ -24,8 +24,13 @@ const AcademicFaculty = () => {
     })
   );
 
-  const queryData = [];
-  academicFaculty.map((name) => queryData.push({ text: name, value: name }));
+  type QueryData = {
+    name: string;
+  };
+  const queryData: TQuery[] = [];
+  academicFaculty.map(({ name }: QueryData) =>
+    queryData.push({ text: name, value: name })
+  );
   console.log(queryData);
 
   const columns: TableColumnsType<DataType> = [
@@ -33,24 +38,10 @@ const AcademicFaculty = () => {
       title: "Name",
       dataIndex: "name",
       showSorterTooltip: { target: "full-header" },
-      filters: [
-        {
-          text: "Faculty of Web Development",
-          value: "Faculty of Web Development",
-        },
-        {
-          text: "Faculty of Basic Computer",
-          value: "Faculty of Basic Computer",
-        },
-        {
-          text: "Faculty of Graphics",
-          value: "Faculty of Graphics",
-        },
-        {
-          text: "Md Sujon Mia Sujon",
-          value: "Md Sujon Mia Sujon",
-        },
-      ],
+      filters: queryData.map(({ text, value }) => ({
+        text: text, // or just "text" if key and value are the same
+        value: value, // or just "value"
+      })),
       onFilter: (value, record) => record.name === value,
       sortDirections: ["descend"],
       //   onFilter: (value, record) => record.name.indexOf(value as string) === 0,

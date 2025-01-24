@@ -27,6 +27,10 @@ export type TQuery = {
   name: string;
   value: boolean | React.Key;
 };
+export type TTextAndValue = {
+  text: string;
+  value: string;
+};
 
 export type TResponse<T> = {
   data?: T;

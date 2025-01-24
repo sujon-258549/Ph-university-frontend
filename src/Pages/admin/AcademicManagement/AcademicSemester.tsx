@@ -1,7 +1,7 @@
 import Loader from "@/Components/Loader/Loader";
 import Notfound from "@/Components/Notfound/Notfound";
 import { useGetAllSemesterQuery } from "@/redux/futures/admin/academicSemester/academicManagement";
-import { TAcademicSemester, TQuery } from "@/types/all";
+import { TAcademicSemester, TQuery, TTextAndValue } from "@/types/all";
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { DataSourceItemType } from "antd/es/auto-complete";
 import { useState } from "react";
@@ -53,6 +53,13 @@ const AcademicSemester = () => {
       endingMonth,
     })
   );
+  //
+  //
+  const queryData: TTextAndValue[] = [];
+  academicFaculty?.map(({ name }: QueryData) =>
+    queryData.push({ text: name, value: name })
+  );
+  //
   const columns: TableColumnsType<DataType> = [
     {
       title: "Name",

@@ -1,4 +1,5 @@
 import { baseApi } from "@/redux/api/baseApi";
+import { TAcademicSemester, TResponseRedux } from "@/types/all";
 
 const createAcademicSemesterApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,22 +11,59 @@ const createAcademicSemesterApi = baseApi.injectEndpoints({
       }),
     }),
     getAllSemester: builder.query({
-      query: () => ({
-        url: "/academic-semester",
-        method: "GET",
+      query: (args) => {
+        console.log(args);
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/academic-semester",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+        console.log(response);
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
+
+    createAcademicFaculty: builder.mutation({
+      query: (data) => ({
+        url: "/academic-faculties/create-academic-faculty",
+        method: "POST",
+        body: data,
       }),
-      //   transformResponse: (response) => {
-      //     console.log(response);
-      //     return {
-      //       response,
-      //       //   data: response.data,
-      //       //   meta: response.meta,
-      //     };
-      //   },
+    }),
+    gatAllAcademicFaculty: builder.query({
+      query: (args) => {
+        console.log(args);
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/academic-faculties",
+          method: "GET",
+          params: params,
+        };
+      },
     }),
   }),
 });
 
 // quentin when useGetAllSemesterQuery
-export const { useCreateAcademicSemesterMutation, useGetAllSemesterQuery } =
-  createAcademicSemesterApi;
+export const {
+  useCreateAcademicSemesterMutation,
+  useGetAllSemesterQuery,
+  useCreateAcademicFacultyMutation,
+  useGatAllAcademicFacultyQuery,
+} = createAcademicSemesterApi;

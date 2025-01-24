@@ -1,3 +1,5 @@
+import { BaseQueryApi } from "@reduxjs/toolkit/query";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type TAcademicSemester = {
   _id: string;
@@ -15,7 +17,26 @@ export type TError = {
   };
 };
 
-export type TResponse = {
-  data?: any;
+export type TMeta = {
+  limit: number;
+  page: number;
+  total: number;
+  totalPage: number;
+};
+export type TQuery = {
+  name: string;
+  value: boolean | React.Key;
+};
+
+export type TResponse<T> = {
+  data?: T;
+  meta?: TMeta;
   error?: TError;
 };
+
+export type TAcademicFaculty = {
+  _id: string;
+  name: string;
+};
+
+export type TResponseRedux<T> = TResponse<T> & BaseQueryApi;

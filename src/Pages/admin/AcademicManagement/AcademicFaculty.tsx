@@ -48,6 +48,10 @@ const AcademicFaculty = () => {
           value: "Md Sujon Mia Sujon",
         },
       ],
+      onFilter: (value, record) => record.name === value,
+      sortDirections: ["descend"],
+      //   onFilter: (value, record) => record.name.indexOf(value as string) === 0,
+      //   sortDirections: ["descend"],
     },
     {
       title: "Action",

@@ -6,38 +6,45 @@ import { TAcademicSemester, TResponse } from "@/types/all";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const CreateAcademicFaculty = () => {
+  const navigate = useNavigate();
   const [createAcademicFaculty] = useCreateAcademicFacultyMutation();
+
   const onsubmit: SubmitHandler<FieldValues> = async (data) => {
-    const tostId = toast.loading("Creating.............");
-    const academicFacultyData = {
-      name: data.name,
-    };
+    const toastId = toast.loading("Creating...");
+    const academicFacultyData = { name: data.name };
+
     try {
       const res = (await createAcademicFaculty(
         academicFacultyData
       )) as TResponse<TAcademicSemester>;
-      console.log(res);
-      console.log(res.error);
+
       if (res.error) {
-        toast.error(res.error?.data?.message, {
-          id: tostId,
+        // Show error message if mutation fails
+        toast.error(res.error?.data?.message || "Something went wrong.", {
+          id: toastId,
           duration: 2000,
         });
       } else {
-        toast.success("Academic Faculty Create Success");
+        // Show success message and navigate
+        toast.success("Academic Faculty created successfully!", {
+          id: toastId,
+        });
+        navigate("/admin/Academic-Faculty");
       }
-      console.log(res);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast.error("Academic Faculty Create Felid", {
-        id: tostId,
+      // Handle any unexpected errors
+      toast.error("Failed to create Academic Faculty.", {
+        id: toastId,
         duration: 2000,
       });
     }
   };
+
   return (
     <div
       className="border border-black max-w-[400px] mx-auto p-5 rounded-md"
@@ -49,7 +56,7 @@ const CreateAcademicFaculty = () => {
           type="text"
           placeholder="Enter Your Name"
           label="Name"
-        ></PhInput>
+        />
         <Button className="w-full" htmlType="submit">
           Submit
         </Button>

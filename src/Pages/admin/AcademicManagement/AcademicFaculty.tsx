@@ -10,6 +10,7 @@ const AcademicFaculty = () => {
     key: React.Key;
     name: string;
   }
+
   const {
     data: academicFacultyData,
     isLoading,
@@ -23,7 +24,9 @@ const AcademicFaculty = () => {
     })
   );
 
-  console.log(academicFaculty);
+  const queryData = [];
+  academicFaculty.map((name) => queryData.push({ text: name, value: name }));
+  console.log(queryData);
 
   const columns: TableColumnsType<DataType> = [
     {

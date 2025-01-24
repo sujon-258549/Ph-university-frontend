@@ -1,6 +1,6 @@
 import Loader from "@/Components/Loader/Loader";
 import { useGatAllAcademicFacultyQuery } from "@/redux/futures/admin/academicSemester/academicManagement";
-import { TAcademicFaculty, TQuery } from "@/types/all";
+import { TAcademicFaculty, TQuery, TTextAndValue } from "@/types/all";
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 
@@ -27,11 +27,10 @@ const AcademicFaculty = () => {
   type QueryData = {
     name: string;
   };
-  const queryData: TQuery[] = [];
-  academicFaculty.map(({ name }: QueryData) =>
+  const queryData: TTextAndValue[] = [];
+  academicFaculty?.map(({ name }: QueryData) =>
     queryData.push({ text: name, value: name })
   );
-  console.log(queryData);
 
   const columns: TableColumnsType<DataType> = [
     {

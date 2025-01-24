@@ -5,7 +5,7 @@ import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 
 const AcademicFaculty = () => {
-  const [params, setParams] = useState<TQuery | undefined>(undefined);
+  const [params, setParams] = useState<TQuery[] | undefined>(undefined);
   interface DataType {
     key: React.Key;
     name: string;
@@ -67,9 +67,9 @@ const AcademicFaculty = () => {
   }
 
   const onChange: TableProps<DataType>["onChange"] = (
-    pagination,
+    _pagination,
     filters,
-    sorter,
+    _sorter,
     extra
   ) => {
     if (extra.action === "filter") {

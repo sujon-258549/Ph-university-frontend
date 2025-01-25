@@ -1,5 +1,4 @@
 import App from "@/App";
-import Contact from "../Pages/Contact";
 import Login from "../Pages/Login";
 import Registration from "../Pages/Registration";
 import { createBrowserRouter } from "react-router-dom";
@@ -11,8 +10,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "contact",
-        element: <Contact />,
+        path: "/login",
+        element: <Login />,
       },
     ],
   },
@@ -23,10 +22,6 @@ const router = createBrowserRouter([
     children: routeGenerator(adminPath),
   },
 
-  {
-    path: "/login",
-    element: <Login />,
-  },
   {
     path: "register",
     element: <Registration />,

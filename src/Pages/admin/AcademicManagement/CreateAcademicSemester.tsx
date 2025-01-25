@@ -36,14 +36,18 @@ const CreateAcademicSemester = () => {
         semesterData
       )) as TResponse<TAcademicSemester>;
       if (res.error) {
-        toast.error(res.error?.data?.message, { id: tostId });
+        toast.error(res.error?.data?.message, { id: tostId, duration: 2000 });
       } else {
         toast.success("Semester Create Success");
       }
+      toast.caller(tostId);
       console.log(res);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toast.error("Academic Semester Create Felid", { id: tostId });
+      toast.error("Academic Semester Create Felid", {
+        id: tostId,
+        duration: 2000,
+      });
     }
   };
 

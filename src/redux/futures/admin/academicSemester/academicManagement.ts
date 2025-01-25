@@ -33,6 +33,29 @@ const createAcademicSemesterApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAllacademicDepartment: builder.query({
+      query: (args) => {
+        console.log(args);
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/depertment",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response: TResponseRedux<TAcademicSemester[]>) => {
+        console.log(response);
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
 
     createAcademicFaculty: builder.mutation({
       query: (data) => ({
@@ -66,4 +89,5 @@ export const {
   useGetAllSemesterQuery,
   useCreateAcademicFacultyMutation,
   useGatAllAcademicFacultyQuery,
+  useGetAllacademicDepartmentQuery,
 } = createAcademicSemesterApi;

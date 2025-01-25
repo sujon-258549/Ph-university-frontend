@@ -16,7 +16,7 @@ const CreateStudent = () => {
         <Col span={24} lg={{ span: 8 }}>
           <PhInput
             className="w-full"
-            name="name"
+            name="name.firstName"
             placeholder="Enter Your First Name"
             label="First Name"
             type="text"
@@ -25,18 +25,18 @@ const CreateStudent = () => {
         <Col span={24} lg={{ span: 8 }}>
           <PhInput
             className="w-full"
-            name="name"
-            placeholder="Enter Your First Name"
-            label="First Name"
+            name="name.middleName"
+            placeholder="Enter Your Middle Name"
+            label="middle Name"
             type="text"
           ></PhInput>
         </Col>
         <Col span={24} lg={{ span: 8 }}>
           <PhInput
             className="w-full"
-            name="name"
-            placeholder="Enter Your First Name"
-            label="First Name"
+            name="name.lastName"
+            placeholder="Enter Your Last Name"
+            label="Last Name"
             type="text"
           ></PhInput>
         </Col>

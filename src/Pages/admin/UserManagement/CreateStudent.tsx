@@ -1,3 +1,4 @@
+import PhDate from "@/Components/from/PhDate";
 import PhFrom from "@/Components/from/PhFrom";
 import PhInput from "@/Components/from/PhInput";
 import PhSelect from "@/Components/from/PhSelect";
@@ -5,6 +6,7 @@ import {
   useGetAllacademicDepartmentQuery,
   useGetAllSemesterQuery,
 } from "@/redux/futures/admin/academicSemester/academicManagement";
+import { useCreateStudentMutation } from "@/redux/futures/admin/userManagement/userCreate";
 import { Button, Col, Divider, Row } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 const bloodGroups = [
@@ -24,73 +26,114 @@ const gender = [
   { label: "Other", value: "Other" },
 ];
 
-// const informaction = {
-//   password: "student1234",
-//   student: {
-//     // name: {
-//     //   firstName: "S",
-//     //   middleName: "mia.",
-//     //   lastName: "sujon",
-//     // },
-//     // email: "sn2555.johnson@example.com", //not user
-//     // dateOfBirth: "2011-06-25",
-//     // gender: "Female",
-//     // phone: "01898765432",
-//     // address: "456 Maple Avenue, Uptown, Springfield",
-//     // grade: "8",
-//     // section: "B",
-//     // enrolledDate: "2022-01-10",
-//     // guardian: {
-//     //   guardianName: "Michael Johnson",
-//     //   guardianPhone: "+8801722334455",
-//     // },
-//     // nationality: "American",
-//     // religion: "Islam",
-//     // hobbies: ["Reading", "Swimming"],
-//     // extracurriculars: ["Debate Club", "Science Fair"],
-//     // previousSchool: "Sunrise High School",
-//     // emergencyContact: "+8801888997766",
-//     // bloodGroup: "B+",
-//     attendancePercentage: 92.3,
-//     marks: {
-//       Science: 89,
-//       Math: 95,
-//       Geography: 88,
-//     },
-//     admitionSamester: "67751aa097baa8b3e98634ee",
-//     acadimicDepertment: "67752e7c69b3e3329a4fce51",
-//     comments: "Demonstrates excellent leadership skills and teamwork.",
-//   },
-// };
+const informaction = {
+  password: "student1234",
+  student: {
+    // name: {
+    //   firstName: "S",
+    //   middleName: "mia.",
+    //   lastName: "sujon",
+    // },
+    // email: "sn2555.johnson@example.com", //not user
+    // dateOfBirth: "2011-06-25",
+    // gender: "Female",
+    // phone: "01898765432",
+    // address: "456 Maple Avenue, Uptown, Springfield",
+    // grade: "8",
+    // section: "B",
+    // enrolledDate: "2022-01-10",
+    // guardian: {
+    //   guardianName: "Michael Johnson",
+    //   guardianPhone: "+8801722334455",
+    // },
+    // nationality: "American",
+    // religion: "Islam",
+    // hobbies: ["Reading", "Swimming"],
+    // extracurriculars: ["Debate Club", "Science Fair"],
+    // previousSchool: "Sunrise High School",
+    // emergencyContact: "+8801888997766",
+    // bloodGroup: "B+",
+    attendancePercentage: 92.3,
+    marks: {
+      Science: 89,
+      Math: 95,
+      Geography: 88,
+    },
+    admitionSamester: "67751aa097baa8b3e98634ee",
+    acadimicDepertment: "67752e7c69b3e3329a4fce51",
+    comments: "Demonstrates excellent leadership skills and teamwork.",
+  },
+};
+
+const defultData = {
+  name: {
+    firstName: "S",
+    middleName: "mia.",
+    lastName: "sujon",
+  },
+  email: "sn2555.00000johnson@example.com", //not user
+  gender: "Female",
+  phone: "01898765432",
+  address: "456 Maple Avenue, Uptown, Springfield",
+  grade: "8",
+  section: "B",
+  guardian: {
+    guardianName: "Michael Johnson",
+    guardianPhone: "+8801722334455",
+  },
+  nationality: "American",
+  religion: "Islam",
+  hobbies: ["Reading", "Swimming"],
+  extracurriculars: ["Debate Club", "Science Fair"],
+  previousSchool: "Sunrise High School",
+  emergencyContact: "+8801888997766",
+  bloodGroup: "B+",
+  attendancePercentage: 92.3,
+  marks: {
+    Science: 89,
+    Math: 95,
+    Geography: 88,
+  },
+  comments: "Demonstrates excellent leadership skills and teamwork.",
+};
 
 type TAcademicDepartment = {
   _id: string;
   name: string;
+  year?: number;
 };
 const CreateStudent = () => {
-  const { data: acadimecdepertment } = useGetAllacademicDepartmentQuery([]);
-  const { data: academicDepartment } = useGetAllSemesterQuery([]);
+  const { data: acadimecdepertment, isLoading: dIsLading } =
+    useGetAllacademicDepartmentQuery(undefined);
+  const { data: academicSemester, isLoading: sIsLading } =
+    useGetAllSemesterQuery(undefined, { skip: dIsLading });
   // @ts-expect-error abc
   const acadimecdepertdata = acadimecdepertment?.data?.result.map(
     ({ _id, name }: TAcademicDepartment) => ({
-      name: _id,
-      value: name,
+      label: name,
+      value: _id,
     })
   );
   // @ts-expect-error abc
-  const academicSemesterData = academicDepartment?.data?.result.map(
-    ({ _id, name }: TAcademicDepartment) => ({
-      name: _id,
-      value: name,
+  const academicSemesterData = academicSemester?.data?.result.map(
+    ({ _id, name, year }: TAcademicDepartment) => ({
+      value: _id,
+      label: `${name}-${year}`,
     })
   );
+  const [createStudent, { data, error }] = useCreateStudentMutation();
+  console.log(data, error);
   const onsubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    // const fromData = new FormData();
-    // fromData.append("data", JSON.stringify(data));
+    const createStudentData = {
+      password: "student1234",
+      student: data,
+    };
+    const fromData = new FormData();
+    fromData.append("data", JSON.stringify(createStudentData));
+    createStudent(fromData);
   };
   return (
-    <PhFrom onSubmit={onsubmit}>
+    <PhFrom onSubmit={onsubmit} defaultValues={defultData}>
       <Divider>Personal Information</Divider>
       <Row gutter={8}>
         <Col span={24} lg={{ span: 8 }}>
@@ -125,14 +168,8 @@ const CreateStudent = () => {
         <Col span={24} lg={{ span: 8 }}>
           <PhSelect name="gender" label="Gender" options={gender}></PhSelect>
         </Col>
-        <Col span={24} lg={{ span: 8 }}>
-          <PhInput
-            className="w-full"
-            name="dateOfBirth"
-            placeholder="Enter Your Date of Barth"
-            label="Date of Barth"
-            type="text"
-          ></PhInput>
+        <Col span={24} lg={{ span: 8 }} style={{ width: "100%" }}>
+          <PhDate name="dateOfBirth" label="Date of Barth"></PhDate>
         </Col>
         <Col span={24} lg={{ span: 8 }}>
           <PhSelect
@@ -225,12 +262,7 @@ const CreateStudent = () => {
           ></PhInput>
         </Col>
         <Col span={24} lg={{ span: 8 }}>
-          <PhInput
-            name="enrolledDate"
-            label="Enrolled Date"
-            placeholder="Enter Your Enrolled Date "
-            type="Date"
-          ></PhInput>
+          <PhDate name="enrolledDate" label="Enrolled Date"></PhDate>
         </Col>
       </Row>
       <Row gutter={8}>
@@ -261,6 +293,34 @@ const CreateStudent = () => {
           ></PhInput>
         </Col>
       </Row>
+      {/* <Row gutter={8}>
+        <Col span={24} lg={{ span: 8 }}>
+          <PhInput
+            className="w-full"
+            name="extracurriculars"
+            placeholder="Enter Your extracurricular"
+            label="Extracurricular"
+            type="text"
+          ></PhInput>
+        </Col>
+        <Col span={24} lg={{ span: 8 }}>
+          <PhInput
+            className="w-full"
+            name="previousSchool"
+            placeholder="Enter Your previousSchool"
+            label="PreviousSchool"
+            type="text"
+          ></PhInput>
+        </Col>
+        <Col span={24} lg={{ span: 8 }}>
+          <PhInput
+            name="attendancePercentage"
+            label="Attendance Percentage"
+            placeholder="Enter Your Attendance Percentage"
+            type="number"
+          ></PhInput>
+        </Col>
+      </Row> */}
       <Row gutter={8}>
         <Col span={24} lg={{ span: 8 }}>
           <PhInput
@@ -292,6 +352,7 @@ const CreateStudent = () => {
       <Row gutter={8}>
         <Col span={24} lg={{ span: 8 }}>
           <PhSelect
+            disabled={sIsLading}
             name="admitionSamester"
             options={academicSemesterData}
             label="Addition Semester"
@@ -299,8 +360,9 @@ const CreateStudent = () => {
         </Col>
         <Col span={24} lg={{ span: 8 }}>
           <PhSelect
+            disabled={dIsLading}
             name="acadimicDepertment"
-            label="Addition Semester"
+            label="Addition department"
             options={acadimecdepertdata}
           ></PhSelect>
         </Col>

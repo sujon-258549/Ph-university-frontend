@@ -5,10 +5,11 @@ import { Controller } from "react-hook-form";
 interface Label {
   label?: string;
   name: string;
-  options: { value: string; label: string }[];
+  options: { value: string; label: string }[] | undefined;
+  disabled?: boolean;
 }
 
-const PhSelect: React.FC<Label> = ({ label, name, options }) => {
+const PhSelect: React.FC<Label> = ({ label, name, options, disabled }) => {
   return (
     <Controller
       name={name}
@@ -18,6 +19,7 @@ const PhSelect: React.FC<Label> = ({ label, name, options }) => {
             showSearch
             onChange={onChange}
             placeholder="Select a person"
+            disabled={disabled}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }

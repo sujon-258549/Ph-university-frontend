@@ -26,46 +26,46 @@ const gender = [
   { label: "Other", value: "Other" },
 ];
 
-const informaction = {
-  password: "student1234",
-  student: {
-    // name: {
-    //   firstName: "S",
-    //   middleName: "mia.",
-    //   lastName: "sujon",
-    // },
-    // email: "sn2555.johnson@example.com", //not user
-    // dateOfBirth: "2011-06-25",
-    // gender: "Female",
-    // phone: "01898765432",
-    // address: "456 Maple Avenue, Uptown, Springfield",
-    // grade: "8",
-    // section: "B",
-    // enrolledDate: "2022-01-10",
-    // guardian: {
-    //   guardianName: "Michael Johnson",
-    //   guardianPhone: "+8801722334455",
-    // },
-    // nationality: "American",
-    // religion: "Islam",
-    // hobbies: ["Reading", "Swimming"],
-    // extracurriculars: ["Debate Club", "Science Fair"],
-    // previousSchool: "Sunrise High School",
-    // emergencyContact: "+8801888997766",
-    // bloodGroup: "B+",
-    attendancePercentage: 92.3,
-    marks: {
-      Science: 89,
-      Math: 95,
-      Geography: 88,
-    },
-    admitionSamester: "67751aa097baa8b3e98634ee",
-    acadimicDepertment: "67752e7c69b3e3329a4fce51",
-    comments: "Demonstrates excellent leadership skills and teamwork.",
-  },
-};
+// const informaction = {
+//   password: "student1234",
+//   student: {
+//     // name: {
+//     //   firstName: "S",
+//     //   middleName: "mia.",
+//     //   lastName: "sujon",
+//     // },
+//     // email: "sn2555.johnson@example.com", //not user
+//     // dateOfBirth: "2011-06-25",
+//     // gender: "Female",
+//     // phone: "01898765432",
+//     // address: "456 Maple Avenue, Uptown, Springfield",
+//     // grade: "8",
+//     // section: "B",
+//     // enrolledDate: "2022-01-10",
+//     // guardian: {
+//     //   guardianName: "Michael Johnson",
+//     //   guardianPhone: "+8801722334455",
+//     // },
+//     // nationality: "American",
+//     // religion: "Islam",
+//     // hobbies: ["Reading", "Swimming"],
+//     // extracurriculars: ["Debate Club", "Science Fair"],
+//     // previousSchool: "Sunrise High School",
+//     // emergencyContact: "+8801888997766",
+//     // bloodGroup: "B+",
+//     attendancePercentage: 92.3,
+//     marks: {
+//       Science: 89,
+//       Math: 95,
+//       Geography: 88,
+//     },
+//     admitionSamester: "67751aa097baa8b3e98634ee",
+//     acadimicDepertment: "67752e7c69b3e3329a4fce51",
+//     comments: "Demonstrates excellent leadership skills and teamwork.",
+//   },
+// };
 
-const defultData = {
+const defaultData = {
   name: {
     firstName: "S",
     middleName: "mia.",
@@ -135,7 +135,7 @@ const CreateStudent = () => {
     createStudent(fromData);
   };
   return (
-    <PhFrom onSubmit={onsubmit} defaultValues={defultData}>
+    <PhFrom onSubmit={onsubmit} defaultValues={defaultData}>
       <Divider>Personal Information</Divider>
       <Row gutter={8}>
         <Col span={24} lg={{ span: 8 }}>

@@ -40,7 +40,13 @@ export type TResponse<T> = {
 
 export type TAcademicFaculty = {
   _id: string;
-  name: string;
+  name?: string;
+  fullname?: string;
+  email?: string;
+  phone?: string;
+  id?: string;
+  role?: string;
+  guardian?: string;
 };
 
 export type TResponseRedux<T> = TResponse<T> & BaseQueryApi;

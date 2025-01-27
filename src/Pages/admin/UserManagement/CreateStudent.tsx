@@ -7,8 +7,8 @@ import {
   useGetAllSemesterQuery,
 } from "@/redux/futures/admin/academicSemester/academicManagement";
 import { useCreateStudentMutation } from "@/redux/futures/admin/userManagement/userCreate";
-import { Button, Col, Divider, Row } from "antd";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { Button, Col, Divider, Form, Input, Row } from "antd";
+import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 const bloodGroups = [
   { label: "A+", value: "A+" },
   { label: "A-", value: "A-" },
@@ -130,6 +130,8 @@ const CreateStudent = () => {
     };
     const fromData = new FormData();
     fromData.append("data", JSON.stringify(createStudentData));
+    fromData.append("file", data.profileImg);
+    console.log(createStudentData);
     createStudent(fromData);
   };
   return (
@@ -177,6 +179,35 @@ const CreateStudent = () => {
             label="Blood Group"
             options={bloodGroups}
           ></PhSelect>
+        </Col>
+      </Row>
+      <Row>
+        <Col style={{ margin: "0 auto" }} span={24} lg={{ span: 8 }}>
+          {/* <Controller name="profileImg" />
+          render=
+          {({ field: { onchange, value, filed } }) => (
+            <Form.Item label="Profile Photo">
+              <Input
+                type="file"
+                value={value.fileName}
+                {...filed}
+                onChange={() => onchange(e?.target?.files[0])}
+              />
+            </Form.Item>
+          )} */}
+          <Controller
+            name="profileImg"
+            render={({ field: { onChange, value, ...filed } }) => (
+              <Form.Item label="Profile Photo">
+                <Input
+                  type="file"
+                  {...filed}
+                  value={value?.fileName}
+                  onChange={(e) => onChange(e?.target?.files?.[0])}
+                />
+              </Form.Item>
+            )}
+          />
         </Col>
       </Row>
       <Divider>Contact Information</Divider>

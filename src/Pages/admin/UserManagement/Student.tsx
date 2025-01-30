@@ -1,15 +1,30 @@
 import Loader from "@/Components/Loader/Loader";
 import { useGetAllStudentQuery } from "@/redux/futures/admin/userManagement/userCreate";
 import { TAcademicFaculty, TQuery, TTextAndValue } from "@/types/all";
-import { Button, Pagination, Table, TableColumnsType, TableProps } from "antd";
+import {
+  Button,
+  Modal,
+  Pagination,
+  Table,
+  TableColumnsType,
+  TableProps,
+} from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Student = () => {
   interface DataType {
     key: React.Key;
-    name: string;
+    name?: string;
+    fullname: string;
+    id: string;
+    phone: string;
+    email: string;
+    role: string;
   }
+
+  const [selectedStudent, setSelectedStudent] = useState<DataType | null>(null);
 
   const [page, setPage] = useState(2);
   const {
@@ -94,11 +109,33 @@ const Student = () => {
       render: (item) => {
         return (
           <>
-            <Button>Update</Button>
             <Link to={`/admin/student/${item.key}`}>
-              <Button>Detail</Button>
+              <Button>Update</Button>
             </Link>
+
+            {/* <Link to={`/admin/student/${item.key}`}> */}
+            <Button onClick={() => setSelectedStudent(item)}>Detail</Button>
+            {/* </Link> */}
             <Button>status</Button>
+            <Modal
+              title="Student Details"
+              open={!!selectedStudent}
+              onOk={() => setSelectedStudent(null)}
+              onCancel={() => setSelectedStudent(null)}
+            >
+              <p>
+                <strong>Name:</strong> {selectedStudent?.fullname}
+              </p>
+              <p>
+                <strong>ID:</strong> {selectedStudent?.id}
+              </p>
+              <p>
+                <strong>Phone:</strong> {selectedStudent?.phone}
+              </p>
+              <p>
+                <strong>Email:</strong> {selectedStudent?.email}
+              </p>
+            </Modal>
           </>
         );
       },

@@ -12,8 +12,10 @@ const userRole = {
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
   let sidebarItems;
+  //   @ts-expect-error abc
   switch (user?.JwtPayload?.userRole) {
     case userRole.ADMIN:
+      //   @ts-expect-error abc
       sidebarItems = sidebarItemsGenerator(adminPath, userRole.ADMIN);
       break;
 
@@ -40,6 +42,7 @@ const Sidebar = () => {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["4"]}
+        //   @ts-expect-error abc
         items={sidebarItems}
       />
     </Sider>

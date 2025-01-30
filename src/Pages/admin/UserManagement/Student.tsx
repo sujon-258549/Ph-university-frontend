@@ -1,7 +1,9 @@
 import Loader from "@/Components/Loader/Loader";
 import { useGetAllStudentQuery } from "@/redux/futures/admin/userManagement/userCreate";
 import { TAcademicFaculty, TQuery, TTextAndValue } from "@/types/all";
-import { Button, Table, TableColumnsType, TableProps } from "antd";
+import { Button, Pagination, Table, TableColumnsType, TableProps } from "antd";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Student = () => {
   interface DataType {
@@ -9,11 +11,19 @@ const Student = () => {
     name: string;
   }
 
+  const [page, setPage] = useState(2);
   const {
     data: student,
     isLoading,
     isFetching,
-  } = useGetAllStudentQuery(undefined);
+  } = useGetAllStudentQuery([
+    // limit problem
+    { name: "limit", value: 10 },
+    { name: "page", value: page },
+    { name: "sort", value: "id" },
+  ]);
+
+  const metaData = student?.meta;
 
   const studentData = student?.data?.result?.map(
     ({
@@ -81,10 +91,13 @@ const Student = () => {
     {
       title: "Action",
       key: "K",
-      render: () => {
+      render: (item) => {
         return (
           <>
-            <Button>Update</Button> <Button>Detail</Button>
+            <Button>Update</Button>
+            <Link to={`/admin/student/${item.key}`}>
+              <Button>Detail</Button>
+            </Link>
             <Button>status</Button>
           </>
         );
@@ -112,13 +125,22 @@ const Student = () => {
   };
   return (
     <div>
-      <Table<DataType>
-        loading={isFetching}
-        columns={columns}
-        dataSource={studentData}
-        onChange={onChange}
-        showSorterTooltip={{ target: "sorter-icon" }}
-      />
+      <>
+        <Table<DataType>
+          pagination={false}
+          loading={isFetching}
+          columns={columns}
+          dataSource={studentData}
+          onChange={onChange}
+          showSorterTooltip={{ target: "sorter-icon" }}
+        />
+        <Pagination
+          current={page}
+          onChange={(pageValue) => setPage(pageValue)}
+          pageSize={metaData?.limit}
+          total={metaData?.total}
+        ></Pagination>
+      </>
     </div>
   );
 };

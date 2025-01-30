@@ -9,6 +9,7 @@ import CreateStudent from "@/Pages/admin/UserManagement/CreateStudent";
 import Dashboard from "@/Pages/admin/Dashboard";
 import Student from "@/Pages/admin/UserManagement/Student";
 import Faculty from "@/Pages/admin/UserManagement/Faculty";
+import StudentDetailPage from "@/Pages/admin/UserManagement/StudentDetailPage";
 
 export const adminPath = [
   {
@@ -73,6 +74,10 @@ export const adminPath = [
         name: "Student",
         path: "student",
         element: <Student />,
+      },
+      {
+        path: "student/:studentId",
+        element: <StudentDetailPage />,
       },
     ],
   },

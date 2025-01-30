@@ -27,6 +27,6 @@ authentication part main 26.6------------28.7 // main part for Authentication
 
 npm i @hookform/resolvers
 
+<!-- pagination -->
 <!-- end project -->
 <!-- end project -->
-<!-- hello ;input -->

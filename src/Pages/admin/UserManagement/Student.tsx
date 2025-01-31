@@ -1,5 +1,5 @@
 import Loader from "@/Components/Loader/Loader";
-import { useGetAllStudentQuery } from "@/redux/futures/admin/userManagement/userCreate";
+import { useGetAllStudentQuery } from "@/redux/futures/admin/userMamagement";
 import { TAcademicFaculty, TQuery, TTextAndValue } from "@/types/all";
 import {
   Button,

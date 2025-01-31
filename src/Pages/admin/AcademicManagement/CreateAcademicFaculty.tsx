@@ -1,7 +1,7 @@
 import PhFrom from "@/Components/from/PhFrom";
 import PhInput from "@/Components/from/PhInput";
 import { academicFacultySchema } from "@/Components/Schema/academicFaculty";
-import { useCreateAcademicFacultyMutation } from "@/redux/futures/admin/academicSemester/academicManagement";
+import { useCreateAcademicFacultyMutation } from "@/redux/futures/admin/academicManagement";
 import { TAcademicSemester, TResponse } from "@/types/all";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "antd";

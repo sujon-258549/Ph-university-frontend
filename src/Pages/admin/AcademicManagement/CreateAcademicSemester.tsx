@@ -8,7 +8,7 @@ import { Button } from "antd";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "@/Components/Schema/academicManagement";
-import { useCreateAcademicSemesterMutation } from "@/redux/futures/admin/academicSemester/academicManagement";
+import { useCreateAcademicSemesterMutation } from "@/redux/futures/admin/academicManagement";
 import { toast } from "sonner";
 import { TAcademicSemester, TResponse } from "@/types/all";
 const CreateAcademicSemester = () => {

@@ -1,5 +1,5 @@
 import Loader from "@/Components/Loader/Loader";
-import { useGatAllAcademicFacultyQuery } from "@/redux/futures/admin/academicSemester/academicManagement";
+import { useGatAllAcademicFacultyQuery } from "@/redux/futures/admin/academicManagement";
 import { TAcademicFaculty, TQuery, TTextAndValue } from "@/types/all";
 import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";

@@ -5,8 +5,8 @@ import PhSelect from "@/Components/from/PhSelect";
 import {
   useGetAllacademicDepartmentQuery,
   useGetAllSemesterQuery,
-} from "@/redux/futures/admin/academicSemester/academicManagement";
-import { useCreateStudentMutation } from "@/redux/futures/admin/userManagement/userCreate";
+} from "@/redux/futures/admin/academicManagement";
+import { useCreateStudentMutation } from "@/redux/futures/admin/userMamagement";
 import { Button, Col, Divider, Form, Input, Row } from "antd";
 import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
 const bloodGroups = [

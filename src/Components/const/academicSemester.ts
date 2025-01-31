@@ -17,3 +17,9 @@ export const monthOptions = [
   { label: "November", value: "November" },
   { label: "December", value: "December" },
 ];
+
+export const RagistactionStatus = [
+  { label: "UPCOMING", value: "UPCOMING" },
+  { label: "ONGOING", value: "ONGOING" },
+  { label: "ENDED", value: "ENDED" },
+];

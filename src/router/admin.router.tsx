@@ -11,6 +11,7 @@ import Student from "@/Pages/admin/UserManagement/Student";
 import Faculty from "@/Pages/admin/UserManagement/Faculty";
 import StudentDetailPage from "@/Pages/admin/UserManagement/StudentDetailPage";
 import SemesterRagistaction from "@/Pages/admin/Coursemanagement/SemesterRagistaction";
+import GetAllSemesterRagistaction from "@/Pages/admin/Coursemanagement/GetAllSemesterRagistaction";
 
 export const adminPath = [
   {
@@ -89,6 +90,11 @@ export const adminPath = [
         name: "Create R course",
         path: "create-Ragistaction-course",
         element: <SemesterRagistaction />,
+      },
+      {
+        name: "Semester R course",
+        path: "ragistaction-course",
+        element: <GetAllSemesterRagistaction />,
       },
     ],
   },

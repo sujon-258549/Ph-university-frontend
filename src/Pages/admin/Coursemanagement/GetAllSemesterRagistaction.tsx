@@ -22,13 +22,14 @@ const GetAllSemesterRagistaction = () => {
     ({
       _id,
       status,
+      name,
       academicSemester,
       startDate,
       endDate,
     }: TAcademicFaculty) => ({
       key: _id,
       status,
-      name: academicSemester?.name,
+      name: `${academicSemester?.name}-${academicSemester?.year}`,
       endDate,
       startDate,
     })

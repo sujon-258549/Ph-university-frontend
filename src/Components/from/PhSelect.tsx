@@ -7,15 +7,23 @@ interface Label {
   name: string;
   options: { value: string; label: string }[] | undefined;
   disabled?: boolean;
+  mode: "multiple" | undefined;
 }
 
-const PhSelect: React.FC<Label> = ({ label, name, options, disabled }) => {
+const PhSelect: React.FC<Label> = ({
+  label,
+  name,
+  options,
+  mode,
+  disabled,
+}) => {
   return (
     <Controller
       name={name}
       render={({ field: { onChange }, fieldState: { error } }) => (
         <Form.Item label={label}>
           <Select
+            mode={mode}
             showSearch
             onChange={onChange}
             placeholder="Select a person"

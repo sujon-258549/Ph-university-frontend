@@ -35,9 +35,34 @@ const userCreateApi = baseApi.injectEndpoints({
         };
       },
     }),
+    getAllFaculty: builder.query({
+      query: (args) => {
+        console.log(args);
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/faculty",
+          method: "GET",
+          params: params,
+        };
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
   }),
 });
 
 // quentin when useGetAllSemesterQuery
-export const { useCreateStudentMutation, useGetAllStudentQuery } =
-  userCreateApi;
+export const {
+  useCreateStudentMutation,
+  useGetAllStudentQuery,
+  useGetAllFacultyQuery,
+} = userCreateApi;

@@ -41,7 +41,11 @@ export type TResponse<T> = {
 export type TAcademicFaculty = {
   _id: string;
   name?: string;
+  title?: string;
   startDate?: string;
+  cod?: number;
+  prifix?: string;
+  credits?: number;
   endDate?: string;
   status?: string;
   maxCredit?: number;

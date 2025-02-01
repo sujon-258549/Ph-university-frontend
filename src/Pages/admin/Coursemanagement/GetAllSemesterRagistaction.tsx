@@ -28,7 +28,7 @@ const GetAllSemesterRagistaction = () => {
     }: TAcademicFaculty) => ({
       key: _id,
       status,
-      academicSemester: academicSemester?.name,
+      name: academicSemester?.name,
       endDate,
       startDate,
     })
@@ -45,7 +45,7 @@ const GetAllSemesterRagistaction = () => {
   const columns: TableColumnsType<DataType> = [
     {
       title: "Academic Semester",
-      dataIndex: "academicSemester",
+      dataIndex: "name",
       showSorterTooltip: { target: "full-header" },
       filters: queryData.map(({ text, value }) => ({
         text: text, // or just "text" if key and value are the same

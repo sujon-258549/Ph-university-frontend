@@ -27,6 +27,10 @@ authentication part main 26.6------------28.7 // main part for Authentication
 
 npm i @hookform/resolvers
 
+<!-- using moment js -->
+
+npm install moment --save
+
 <!-- pagination -->
 <!-- end project -->
 <!-- end project -->

@@ -1,17 +1,38 @@
 import Loader from "@/Components/Loader/Loader";
 import { useGatAllAcademicFacultyQuery } from "@/redux/futures/admin/academicManagement";
-import { useGetAllRagistactionSemesterRagistactionQuery } from "@/redux/futures/admin/courseManagement";
+import {
+  useGetAllRagistactionSemesterRagistactionQuery,
+  useUpdataSemesterRagistactionMutation,
+} from "@/redux/futures/admin/courseManagement";
 import { TAcademicFaculty, TQuery, TTextAndValue } from "@/types/all";
-import { Button, Table, TableColumnsType, TableProps } from "antd";
+import {
+  Button,
+  Dropdown,
+  Table,
+  TableColumnsType,
+  TableProps,
+  Tag,
+} from "antd";
 import { useState } from "react";
-
+import moment from "moment";
 const GetAllSemesterRagistaction = () => {
+  const [updataSemesterRagistaction] = useUpdataSemesterRagistactionMutation();
   const [params, setParams] = useState<TQuery[] | undefined>(undefined);
   interface DataType {
     key: React.Key;
     name: string;
   }
 
+  const items = [
+    { label: "UPCOMING", key: "UPCOMING" },
+    { label: "ONGOING", key: "ONGOING" },
+    { label: "ENDED", key: "ENDED" },
+  ];
+  const statusColorMap = {
+    UPCOMING: "blue",
+    ONGOING: "green",
+    ENDED: "red",
+  };
   const {
     data: academicFacultyData,
     isLoading,
@@ -23,6 +44,8 @@ const GetAllSemesterRagistaction = () => {
       _id,
       status,
       name,
+      maxCredit,
+      minCredit,
       academicSemester,
       startDate,
       endDate,
@@ -30,8 +53,10 @@ const GetAllSemesterRagistaction = () => {
       key: _id,
       status,
       name: `${academicSemester?.name}-${academicSemester?.year}`,
-      endDate,
-      startDate,
+      endDate: moment(new Date(endDate)).format("MMMM"),
+      startDate: moment(new Date(startDate)).format("MMMM"),
+      maxCredit,
+      minCredit,
     })
   );
 
@@ -42,7 +67,23 @@ const GetAllSemesterRagistaction = () => {
   academicFaculty?.map(({ name }: QueryData) =>
     queryData.push({ text: name, value: name })
   );
-
+  const [semesterId, setSemesterId] = useState();
+  console.log(semesterId);
+  const handleUpdataStatus = (data) => {
+    console.log("status", data?.key);
+    console.log("id", semesterId);
+    const updateDate = {
+      id: semesterId,
+      data: {
+        status: data?.key,
+      },
+    };
+    updataSemesterRagistaction(updateDate);
+  };
+  const menuProps = {
+    items,
+    onClick: handleUpdataStatus,
+  };
   const columns: TableColumnsType<DataType> = [
     {
       title: "Academic Semester",
@@ -60,6 +101,9 @@ const GetAllSemesterRagistaction = () => {
     {
       title: "Status",
       dataIndex: "status",
+      render: (status: string) => (
+        <Tag color={statusColorMap[status]}>{status}</Tag>
+      ),
     },
     {
       title: "StartDate",
@@ -70,17 +114,26 @@ const GetAllSemesterRagistaction = () => {
       dataIndex: "endDate",
     },
     {
-      title: "Status",
-      dataIndex: "status",
+      title: "Min Credit",
+      dataIndex: "minCredit",
+    },
+    {
+      title: "Max Credit",
+      dataIndex: "maxCredit",
     },
     {
       title: "Action",
       key: "K",
-      render: () => {
+      render: (itemsData_id) => {
         return (
-          <>
-            <Button>Update</Button> <Button>Update</Button>
-          </>
+          <Dropdown menu={menuProps} trigger={["click"]}>
+            <Button
+              onClick={() => setSemesterId(itemsData_id?.key)}
+              className=""
+            >
+              Update
+            </Button>
+          </Dropdown>
         );
       },
     },
@@ -112,6 +165,7 @@ const GetAllSemesterRagistaction = () => {
         dataSource={academicFaculty}
         onChange={onChange}
         showSorterTooltip={{ target: "sorter-icon" }}
+        pagination={false}
       />
     </div>
   );

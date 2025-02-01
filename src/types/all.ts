@@ -44,6 +44,8 @@ export type TAcademicFaculty = {
   startDate?: string;
   endDate?: string;
   status?: string;
+  maxCredit?: number;
+  minCredit?: number;
   academicSemester?: string;
   fullname?: string;
   email?: string;

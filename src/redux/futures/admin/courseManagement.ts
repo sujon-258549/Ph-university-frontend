@@ -8,6 +8,15 @@ const courseManagementApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["semester"],
+    }),
+    updataSemesterRagistaction: builder.mutation({
+      query: (data) => ({
+        url: `/registration/${data.id}`,
+        method: "PATCH",
+        body: data.data,
+      }),
+      invalidatesTags: ["semester"],
     }),
     getAllRagistactionSemesterRagistaction: builder.query({
       query: (args) => {
@@ -24,6 +33,7 @@ const courseManagementApi = baseApi.injectEndpoints({
           params: params,
         };
       },
+      providesTags: ["semester"],
       transformResponse: (response) => {
         return {
           data: response.data,
@@ -37,4 +47,5 @@ const courseManagementApi = baseApi.injectEndpoints({
 export const {
   useCreateRagistactionMutation,
   useGetAllRagistactionSemesterRagistactionQuery,
+  useUpdataSemesterRagistactionMutation,
 } = courseManagementApi;

@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 import { TSidebarItems, TUserPath } from "@/types";
 
 export const sidebarItemsGenerator = (items: TUserPath[], role: string) => {
+  console.log(role);
   const sideberitems = items.reduce((acc: TSidebarItems[], item) => {
+    console.log(item);
     if (item.path && item.element) {
       acc.push({
         key: item.name,
-        label: <NavLink to={`/${role}/${item.path}`}>{item.name}</NavLink>,
+        label: <NavLink to={`/${role}/${item?.path}`}>{item?.name}</NavLink>,
       });
     }
     if (item.children) {
@@ -18,7 +20,7 @@ export const sidebarItemsGenerator = (items: TUserPath[], role: string) => {
             return {
               key: child.name,
               label: (
-                <NavLink to={`/admin/${child.path}`}>{child.name}</NavLink>
+                <NavLink to={`/${role}/${child.path}`}>{child.name}</NavLink>
               ),
             };
           }

@@ -10,6 +10,7 @@ import {
 import {
   useGetAllCourseQuery,
   useGetAllRagistactionSemesterRagistactionQuery,
+  useGetCourseFacultyQuery,
 } from "@/redux/futures/admin/courseManagement";
 import { useGetAllFacultyQuery } from "@/redux/futures/admin/userMamagement";
 import { Button } from "antd";
@@ -18,7 +19,8 @@ import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const OffedCourse = () => {
   const [disabaltvalue, setdisabaltvalue] = useState();
-  console.log(disabaltvalue);
+  const [courseId, setcourseId] = useState("");
+  console.log(courseId);
   // academic Semester
   const { data: allSemesterRegistration } =
     useGetAllRagistactionSemesterRagistactionQuery(undefined);
@@ -56,14 +58,15 @@ const OffedCourse = () => {
     })
   );
   // faculty
-  const { data: allFaculty } = useGetAllFacultyQuery(undefined);
-  const allFacultyData = allFaculty?.data?.result.map(
+  const { data: allFaculty } = useGetCourseFacultyQuery(courseId);
+  console.log(allFaculty);
+  const allFacultyData = allFaculty?.data?.facultys.map(
     ({ _id, fullName }: { _id: string; fullName: string }) => ({
       label: `${fullName}`,
       value: _id,
     })
   );
-  // academic course
+  //   academic course
   const { data: allCourse } = useGetAllCourseQuery(undefined);
   const allCourseData = allCourse?.data?.map(
     ({ _id, title }: { _id: string; title: string }) => ({
@@ -104,19 +107,21 @@ const OffedCourse = () => {
           label={"Academic Depertment"}
           options={allAcademicDepertmentData}
         ></PhSelect>
+
+        <PhSelectWithWatch
+          onValueChange={setcourseId}
+          mode={undefined}
+          name="course"
+          label={"Course"}
+          options={allCourseData}
+        ></PhSelectWithWatch>
         <PhSelect
+          disabled={!courseId}
           mode={undefined}
           name="faculty"
           label={"Faculty"}
           options={allFacultyData}
         ></PhSelect>
-        <PhSelect
-          mode={undefined}
-          name="course"
-          label={"Course"}
-          options={allCourseData}
-        ></PhSelect>
-
         <PhInput
           label="Max Capacity"
           type="number"

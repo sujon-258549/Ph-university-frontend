@@ -59,7 +59,6 @@ const Student = () => {
       role,
     })
   );
-  console.log(student, studentData);
 
   type QueryData = {
     name: string;

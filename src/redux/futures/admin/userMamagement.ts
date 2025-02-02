@@ -1,8 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/api/baseApi";
-import { TResponse } from "@/types/all";
-import { Student } from "@/types/student";
-// import { TResponse } from "@/types/all";
-// import { Student } from "@/types/student";
 
 const userCreateApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,9 +10,16 @@ const userCreateApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
+    changePassword: builder.mutation({
+      query: (data) => ({
+        url: "/auth/change-password",
+        method: "POST",
+        body: data,
+      }),
+    }),
     getAllStudent: builder.query({
       query: (args) => {
-        console.log(args);
+        // console.log(args);
         const params = new URLSearchParams();
         if (args) {
           args.forEach((element: { name: string; value: string }) => {
@@ -28,7 +32,7 @@ const userCreateApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      transformResponse: (response) => {
+      transformResponse: (response: any) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -37,7 +41,7 @@ const userCreateApi = baseApi.injectEndpoints({
     }),
     getAllFaculty: builder.query({
       query: (args) => {
-        console.log(args);
+        // console.log(args);
         const params = new URLSearchParams();
         if (args) {
           args.forEach((element: { name: string; value: string }) => {
@@ -50,7 +54,7 @@ const userCreateApi = baseApi.injectEndpoints({
           params: params,
         };
       },
-      transformResponse: (response) => {
+      transformResponse: (response: any) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -65,4 +69,5 @@ export const {
   useCreateStudentMutation,
   useGetAllStudentQuery,
   useGetAllFacultyQuery,
+  useChangePasswordMutation,
 } = userCreateApi;

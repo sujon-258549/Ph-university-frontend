@@ -115,8 +115,7 @@ const Course = () => {
 };
 
 // Fix: PascalCase for component name
-const CourseModal = ({ children }) => {
-  console.log(children);
+const CourseModal = ({ children }: any) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -132,9 +131,9 @@ const CourseModal = ({ children }) => {
   const { data: allfaculty } = useGetAllFacultyQuery([
     { name: "sort", value: "createdAt" },
   ]);
-  console.log(allfaculty);
   const acadimecdepertdata = allfaculty?.data?.result?.map(
     ({ _id, name }: { _id: string; name: string }) => ({
+      // @ts-expect-error first name or last name
       label: `${name.firstName} ${name.lastName}`,
       value: _id,
     })

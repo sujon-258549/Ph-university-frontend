@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import { selectCurrentUser } from "@/redux/futures/auth/authSlice";
 // import { useAppSelector } from "@/redux/futures/hooks";
 // import adminPath from "@/router/admin.router";
@@ -60,6 +61,8 @@
 import { selectCurrentUser } from "@/redux/futures/auth/authSlice";
 import { useAppSelector } from "@/redux/futures/hooks";
 import adminPath from "@/router/admin.router";
+import supperAdmntPath from "@/router/createAdmin.router";
+import facultytPath from "@/router/Faculty.router";
 import studentPath from "@/router/Student.router";
 import { sidebarItemsGenerator } from "@/Utils/sidebarItemsGenerator";
 import { Layout, Menu } from "antd";
@@ -69,6 +72,7 @@ const { Sider } = Layout;
 
 const Sidebar = () => {
   const user = useAppSelector(selectCurrentUser);
+  //   @ts-expect-error abc
   const userRoles = user?.JwtPayload?.userRole;
 
   const [dynamicSidebar, setDynamicSidebar] = useState<any>(null);
@@ -78,6 +82,10 @@ const Sidebar = () => {
       setDynamicSidebar(adminPath);
     } else if (userRoles === "student") {
       setDynamicSidebar(studentPath);
+    } else if (userRoles === "faculty") {
+      setDynamicSidebar(facultytPath);
+    } else if (userRoles === "supperAdmin") {
+      setDynamicSidebar(supperAdmntPath);
     }
   }, [userRoles]); // Runs only when `userRoles` changes
 
@@ -91,7 +99,7 @@ const Sidebar = () => {
       style={{ height: "100vh", position: "sticky", left: "0", top: "0" }}
       breakpoint="lg"
       collapsedWidth="0"
-      onBreakpoint={(broken) => console.log(broken)}
+      //   onBreakpoint={(broken) => console.log(broken)}
       onCollapse={(collapsed, type) => console.log(collapsed, type)}
     >
       <div className="text-center text-white h-5 py-7 font-bold text-xl">
@@ -101,6 +109,7 @@ const Sidebar = () => {
         theme="dark"
         mode="inline"
         defaultSelectedKeys={["4"]}
+        // @ts-expect-error abc
         items={sidebarItems}
       />
     </Sider>

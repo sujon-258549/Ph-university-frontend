@@ -23,6 +23,7 @@ const Login = () => {
   }
   //   @ts-expect-error-for token
   const UserRole = user?.JwtPayload?.userRole;
+  console.log(UserRole);
   const defaultValues = {
     id: "2025020004",
     password: "123456",
@@ -38,7 +39,7 @@ const Login = () => {
         id: data.id,
         password: data.password,
       };
-      console.log(userInfo);
+
       // token tek
       const res = await login(userInfo)?.unwrap(); // unwrap use and data to data open
       const user = varifytoken(res?.data?.accessToken) as TUser;

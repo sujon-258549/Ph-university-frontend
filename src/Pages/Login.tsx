@@ -10,6 +10,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/futures/hooks";
 import { varifytoken } from "@/Utils/jwtVerified";
 import { Button } from "antd";
+import { useEffect, useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -17,13 +18,16 @@ const Login = () => {
   const token = useAppSelector(selectCurrentToken);
   //   const tokenRole = userRole?.JwtPayload?.userRole;
   //   const dispatch = useDispatch();
-  let user;
-  if (token) {
-    user = varifytoken(token);
-  }
-  //   @ts-expect-error-for token
-  const UserRole = user?.JwtPayload?.userRole;
-  console.log(UserRole);
+  const [userRole, setUserRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (token) {
+      const user = varifytoken(token);
+      //   @ts-expect-error abc
+      setUserRole(user?.JwtPayload?.userRole);
+    }
+  }, [token]); // Runs when `token` changes
+  console.log(userRole);
   const defaultValues = {
     id: "2025020004",
     password: "123456",
@@ -47,8 +51,10 @@ const Login = () => {
       toast.success("Login Success", { id: tostId, duration: 2000 });
       if (res?.data?.needPasswordChenge) {
         navigate(`/change-password`); //this time hardcoded role user route all create and this time create user role
+      } else if (userRole) {
+        navigate(`/${userRole}/dashboard`);
       } else {
-        navigate(`/${UserRole}/dashboard`); //this time hardcoded role user route all create and this time create user role
+        toast.error("User role not found", { id: tostId });
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {

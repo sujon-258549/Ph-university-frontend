@@ -14,6 +14,7 @@ import SemesterRagistaction from "@/Pages/admin/Coursemanagement/SemesterRagista
 import GetAllSemesterRagistaction from "@/Pages/admin/Coursemanagement/GetAllSemesterRagistaction";
 import CreateCourse from "@/Pages/admin/Coursemanagement/CreateCourse";
 import Course from "@/Pages/admin/Coursemanagement/Course";
+import OffedCourse from "@/Pages/admin/Coursemanagement/OffedCourse";
 
 export const adminPath = [
   {
@@ -107,6 +108,11 @@ export const adminPath = [
         name: "Course",
         path: "course",
         element: <Course />,
+      },
+      {
+        name: "Offered Course",
+        path: "offered-course",
+        element: <OffedCourse />,
       },
     ],
   },

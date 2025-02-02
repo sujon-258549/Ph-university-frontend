@@ -70,11 +70,13 @@ const SemesterRagistaction = () => {
         // resolver={zodResolver(academicSemesterSchema)}
       >
         <PhSelect
+          mode={undefined}
           name="academicSemester"
           label={"Academic Semester"}
           options={acadimecdepertdata}
         ></PhSelect>
         <PhSelect
+          mode={undefined}
           name="status"
           label={"Status"}
           options={RagistactionStatus}

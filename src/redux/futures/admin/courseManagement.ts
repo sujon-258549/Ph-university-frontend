@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "@/redux/api/baseApi";
+import { TResponseRedux } from "@/types/all";
 
 const courseManagementApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,7 +36,7 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["semester"],
-      transformResponse: (response) => {
+      transformResponse: (response: any) => {
         return {
           data: response.data,
           meta: response.meta,
@@ -65,13 +67,14 @@ const courseManagementApi = baseApi.injectEndpoints({
         };
       },
       providesTags: ["course"],
-      transformResponse: (response) => {
+      transformResponse: (response: TResponseRedux<any>) => {
         return {
           data: response.data,
           meta: response.meta,
         };
       },
     }),
+
     getCourseFaculty: builder.query({
       query: (id) => {
         return {
@@ -79,10 +82,10 @@ const courseManagementApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
-      transformResponse: (response) => {
+      transformResponse: (response: any) => {
         return {
-          data: response.data,
-          meta: response.meta,
+          data: response?.data,
+          meta: response?.meta,
         };
       },
     }),
@@ -94,6 +97,37 @@ const courseManagementApi = baseApi.injectEndpoints({
       }),
       // invalidatesTags: ["course"],
     }),
+    assignOfferCourse: builder.mutation({
+      query: (data) => ({
+        url: "/offerd-course/create-offered-course",
+        method: "POST",
+        body: data,
+      }),
+      // invalidatesTags: ["course"],
+    }),
+    getAllOfferCourse: builder.query({
+      query: (args) => {
+        console.log(args);
+        const params = new URLSearchParams();
+        if (args) {
+          args.forEach((element: { name: string; value: string }) => {
+            params.append(element.name, element.value);
+          });
+        }
+        return {
+          url: "/offerd-course",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["course"],
+      transformResponse: (response: TResponseRedux<any>) => {
+        return {
+          data: response.data,
+          meta: response.meta,
+        };
+      },
+    }),
   }),
 });
 
@@ -104,5 +138,7 @@ export const {
   useCreatecourseMutation,
   useGetAllCourseQuery,
   useAssignFacultyMutation,
+  useGetAllOfferCourseQuery,
   useGetCourseFacultyQuery,
+  useAssignOfferCourseMutation,
 } = courseManagementApi;

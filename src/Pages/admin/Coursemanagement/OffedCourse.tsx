@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { days } from "@/Components/const/days";
 import PhFrom from "@/Components/from/PhFrom";
 import PhInput from "@/Components/from/PhInput";
@@ -8,14 +9,16 @@ import {
   useGetAllacademicDepartmentQuery,
 } from "@/redux/futures/admin/academicManagement";
 import {
+  useAssignOfferCourseMutation,
   useGetAllCourseQuery,
   useGetAllRagistactionSemesterRagistactionQuery,
   useGetCourseFacultyQuery,
 } from "@/redux/futures/admin/courseManagement";
-import { useGetAllFacultyQuery } from "@/redux/futures/admin/userMamagement";
+import { TResponse } from "@/types/all";
 import { Button } from "antd";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
 
 const OffedCourse = () => {
   const [disabaltvalue, setdisabaltvalue] = useState();
@@ -59,7 +62,6 @@ const OffedCourse = () => {
   );
   // faculty
   const { data: allFaculty } = useGetCourseFacultyQuery(courseId);
-  console.log(allFaculty);
   const allFacultyData = allFaculty?.data?.facultys.map(
     ({ _id, fullName }: { _id: string; fullName: string }) => ({
       label: `${fullName}`,
@@ -74,13 +76,33 @@ const OffedCourse = () => {
       value: _id,
     })
   );
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const [assignOfferCourse] = useAssignOfferCourseMutation();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const tostId = toast.loading("Creating.............");
     const offeredCourseData = {
       ...data,
       maxCapacity: Number(data.maxCapacity),
       section: Number(data.section),
     };
     console.log(offeredCourseData);
+    try {
+      const res = (await assignOfferCourse(
+        offeredCourseData
+      )) as TResponse<any>;
+      if (res.error) {
+        toast.error(res.error?.data?.message, { id: tostId, duration: 2000 });
+      } else {
+        toast.success("create course  Success");
+      }
+      toast.caller(tostId);
+      console.log(res);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error("create course  Felid", {
+        id: tostId,
+        duration: 2000,
+      });
+    }
   };
   return (
     <div className="max-w-96 mx-auto ">
@@ -89,6 +111,7 @@ const OffedCourse = () => {
         // resolver={zodResolver(academicSemesterSchema)}
       >
         <PhSelectWithWatch
+          // @ts-expect-error onvolumechange
           onValueChange={setdisabaltvalue}
           mode={undefined}
           name="semesterRegistration"
@@ -109,6 +132,7 @@ const OffedCourse = () => {
         ></PhSelect>
 
         <PhSelectWithWatch
+          // @ts-expect-error onvolumechange
           onValueChange={setcourseId}
           mode={undefined}
           name="course"
@@ -136,7 +160,7 @@ const OffedCourse = () => {
         ></PhInput>
         <PhSelect
           mode="multiple"
-          name="status"
+          name="days"
           label={"Days"}
           options={days}
         ></PhSelect>

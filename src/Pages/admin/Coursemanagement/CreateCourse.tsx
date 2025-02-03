@@ -41,7 +41,7 @@ const CreateCourse = () => {
       cod: Number(data.cod),
       credits: Number(data.credits),
       isDeleted: false,
-      preRepusiteCousere: data.preRepusiteCousere.map((item) => ({
+      preRepusiteCousere: data.preRepusiteCousere.map((item: any) => ({
         course: item,
         isDeleted: false,
       })),

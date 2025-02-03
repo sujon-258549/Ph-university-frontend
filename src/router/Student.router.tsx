@@ -1,5 +1,5 @@
 import Dashboard from "@/Pages/admin/Dashboard";
-import Student from "@/Pages/admin/UserManagement/Student";
+import GetMyOfferdCourse from "@/Pages/Student/GetMyOfferdCourse";
 
 export const studentPath = [
   {
@@ -11,9 +11,9 @@ export const studentPath = [
     name: "All Student",
     children: [
       {
-        name: "Student",
-        path: "student",
-        element: <Student />,
+        name: "Enroll Course",
+        path: "enroll-course",
+        element: <GetMyOfferdCourse />,
       },
     ],
   },
